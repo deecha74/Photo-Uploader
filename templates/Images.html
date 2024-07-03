@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="h-lvh relative ">
+    <header class=" h-[200px] w-[100%] bg-blue-200 grid place-items-center  ">
+         
+            {% for msg in messages %}
+            {% if msg.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+                <div class=" absolute top-3 right-4 animate-bounce text-red-600">{{ msg }}</div>
+            {% endif %}
+            {% if msg.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+                <div class=" absolute top-3 right-4 animate-bounce alert alert-success">{{ msg }}</div>
+            {% endif %}
+         
+    {% endfor %}
+    <form action=""  method="POST" enctype="multipart/form-data" class="flex flex-row bg-bl justify-center">
+        {% csrf_token %}
+        {{forms}}
+      <input
+        class="bg-blue-500 p-2 text-white cursor-pointer hover:bg-blue-300 shadow-lg rounded-md transition-all ease-in-out duration-100 active:scale-95"
+        type="submit"
+        value="Upload"
+      ></input>
+    </form>
+    </header>
+    <div class=" grid grid-cols-4 mt-4 p-2">
+        {% for photo in image %}
+         
+            <div class="">
+                <img src="{{ photo.Photo.url }}" alt="Uploaded Photo" class="h-[270px] w-[270px] rounded-md hover:-translate-y-4 transition-all ease-in-out duration-200 cursor-pointer active:scale-95 hover:shadow-md ">
+                <p>{{ photo.CreatedDate }}</p>
+            </div>
+         
+    {% endfor %}
+
+    </div>
+    
+  </body>
+</html>
